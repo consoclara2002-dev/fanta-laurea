@@ -135,7 +135,7 @@ function App() {
             ref={nameInputRef}
             id="name"
             type="text"
-            placeholder="Nome e cognome"
+            placeholder="Nome"
             value={name}
             onChange={(e) => {
               setName(e.target.value);
