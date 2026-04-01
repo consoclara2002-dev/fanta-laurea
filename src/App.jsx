@@ -93,6 +93,7 @@ function App() {
     <div className="app-container">
       <div className="card">
         <h1>Fanta Laurea 🎓</h1>
+        <h2>La tesi è finita, la sfida comincia!</h2>
         <p className="subtitle">Seleziona le missioni che hai completato</p>
 
         <div className="input-group">
