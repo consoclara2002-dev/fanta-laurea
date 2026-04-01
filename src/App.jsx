@@ -54,11 +54,14 @@ function App() {
     if (!name.trim()) {
       setMessage("Inserisci il tuo nome prima di salvare!");
 
-      // scroll verso input
-      nameInputRef.current?.scrollIntoView({ behavior: "smooth" });
+      if (nameInputRef.current) {
+        nameInputRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
 
-      // focus automatico
-      nameInputRef.current?.focus();
+        nameInputRef.current.focus();
+      }
 
       return;
     }
@@ -121,7 +124,7 @@ function App() {
             ref={nameInputRef}
             id="name"
             type="text"
-            placeholder="Nome e cognome"
+            placeholder="Nome"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={!name.trim() && message ? "input-error" : ""}
