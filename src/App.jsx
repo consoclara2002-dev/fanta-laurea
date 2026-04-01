@@ -51,8 +51,9 @@ function App() {
   };
 
   const handleSave = async () => {
+    // 🔴 1. Controllo nome vuoto
     if (!name.trim()) {
-      
+      setMessage("⚠️ Inserisci nome e cognome per partecipare!");
 
       if (nameInputRef.current) {
         nameInputRef.current.scrollIntoView({
@@ -70,17 +71,20 @@ function App() {
     setMessage("");
 
     try {
+      // 🧠 2. Genera ID
       const playerId = generateId(name);
       const playerRef = doc(db, "players", playerId);
 
+      // 🔍 3. Controlla se esiste già
       const existing = await getDoc(playerRef);
 
       if (existing.exists()) {
-        setMessage("Nome già utilizzato! Scegline un altro.");
+        setMessage("⚠️ Nome già utilizzato! Scegline un altro.");
         setIsSaving(false);
         return;
       }
 
+      // 💾 4. Salva
       await setDoc(playerRef, {
         name: name.trim(),
         score: totalScore,
@@ -135,7 +139,9 @@ function App() {
             value={name}
             onChange={(e) => {
               setName(e.target.value);
-              setMessage("");
+              if (message.includes("nome")) {
+                setMessage("");
+              }
             }}
             className={!name.trim() && message ? "input-error" : ""}
           />
