@@ -14,6 +14,8 @@ export const tasks = [
   { id: "selfie_pelato", label: "Selfie con un pelato", points: 3, category: "Missioni Speciali" },
   { id: "canzone_festeggiata", label: "Canta una canzone alla festeggiata", points: 8, category: "Missioni Speciali" },
   { id: "dedica_festeggiata", label: "Scrivi una dedica alla festeggiata", points: 10, category: "Missioni Speciali" },
+  { id: "ballare_festeggiata", label: "Riuscire a far ballare la festeggiata", points: 15, category: "Missioni Speciali" },
+  { id: "barzelletta_divertente", label: "Raccontare una barzelletta divertente", points: 10, category: "Missioni Speciali" },
 
   { id: "domanda_lavoro", label: "Chiedere: 'E ora il lavoro? La magistrale?'", points: -10, category: "Malus" },
   { id: "macchiare_tovaglia", label: "Macchiare la tovaglia", points: -5, category: "Malus" },
