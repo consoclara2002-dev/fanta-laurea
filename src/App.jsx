@@ -9,6 +9,8 @@ import {
   query,
   orderBy
 } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
+import { useRef } from "react";
 
 function App() {
   const [name, setName] = useState("");
@@ -16,6 +18,7 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const nameInputRef = useRef(null);
 
   const groupedTasks = useMemo(() => {
     return tasks.reduce((acc, task) => {
@@ -49,7 +52,14 @@ function App() {
 
   const handleSave = async () => {
     if (!name.trim()) {
-      setMessage("Inserisci il tuo nome prima di salvare.");
+      setMessage("Inserisci il tuo nome prima di salvare!");
+
+      // scroll verso input
+      nameInputRef.current?.scrollIntoView({ behavior: "smooth" });
+
+      // focus automatico
+      nameInputRef.current?.focus();
+
       return;
     }
 
@@ -58,8 +68,17 @@ function App() {
 
     try {
       const playerId = generateId(name);
+      const playerRef = doc(db, "players", playerId);
 
-      await setDoc(doc(db, "players", playerId), {
+      const existing = await getDoc(playerRef);
+
+      if (existing.exists()) {
+        setMessage("Nome già utilizzato! Scegline un altro.");
+        setIsSaving(false);
+        return;
+      }
+
+      await setDoc(playerRef, {
         name: name.trim(),
         score: totalScore,
         tasks: selectedTasks,
@@ -99,11 +118,13 @@ function App() {
         <div className="input-group">
           <label htmlFor="name">Il tuo nome</label>
           <input
+            ref={nameInputRef}
             id="name"
             type="text"
-            placeholder="Scrivi il tuo nome"
+            placeholder="Nome e cognome"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className={!name.trim() && message ? "input-error" : ""}
           />
         </div>
 

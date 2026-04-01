@@ -126,3 +126,7 @@ h2 {
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
+.input-error {
+  border: 2px solid red;
+}
