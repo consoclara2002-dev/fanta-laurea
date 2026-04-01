@@ -52,7 +52,7 @@ function App() {
 
   const handleSave = async () => {
     if (!name.trim()) {
-      setMessage("Inserisci il tuo nome prima di salvare!");
+      
 
       if (nameInputRef.current) {
         nameInputRef.current.scrollIntoView({
@@ -119,14 +119,24 @@ function App() {
         <p className="subtitle">Seleziona le missioni che hai completato</p>
 
         <div className="input-group">
+          {message && (
+            <div className="error-message">
+              {message}
+            </div>
+          )}
+
           <label htmlFor="name">Il tuo nome</label>
+
           <input
             ref={nameInputRef}
             id="name"
             type="text"
-            placeholder="Nome"
+            placeholder="Nome e cognome"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              setMessage("");
+            }}
             className={!name.trim() && message ? "input-error" : ""}
           />
         </div>
@@ -159,8 +169,6 @@ function App() {
         <button className="save-button" onClick={handleSave} disabled={isSaving}>
           {isSaving ? "Salvataggio..." : "Salva punteggio"}
         </button>
-
-        {message && <p className="message">{message}</p>}
 
         <div className="section leaderboard">
           <h2>Classifica live</h2>

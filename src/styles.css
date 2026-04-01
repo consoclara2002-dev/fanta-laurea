@@ -130,3 +130,7 @@ h2 {
 .input-error {
   border: 2px solid red;
 }
+
+.error-message {
+  margin-bottom: 10px;
+}
